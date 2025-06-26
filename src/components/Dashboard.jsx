@@ -8,7 +8,8 @@ import {
   FaLightbulb,
   FaComments,
   FaThList,
-  FaBell
+  FaBell,
+  FaBars
 } from "react-icons/fa";
 import "./Dashboard.css";
 
@@ -35,7 +36,8 @@ const DashboardCard = ({ title, value, onClick }) => (
   </div>
 );
 
-const Dashboard = ({ onNavigate }) => {
+// ✅ Accept setShowSidebar as a prop
+const Dashboard = ({ onNavigate, setShowSidebar }) => {
   const stats = {
     "Total Users": 1430,
     "Total Orders": 980,
@@ -50,7 +52,11 @@ const Dashboard = ({ onNavigate }) => {
 
   return (
     <div className="dashboard-container">
-      <h2>Dashboard Overview</h2>
+      <div className="dashboard-header">
+        <h2>Dashboard Overview</h2>
+        {/* ✅ Hamburger icon visible only on mobile */}
+        <FaBars className="hamburger-icon" onClick={() => setShowSidebar(true)} />
+      </div>
       <div className="dashboard-grid">
         {Object.entries(stats).map(([key, value]) => (
           <DashboardCard
