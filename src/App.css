@@ -1,0 +1,32 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 350px; /* ✅ Moves it to the left */
+  font-size: 24px;
+  z-index: 1000;
+  color: #2C7B34;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .app-container {
+    flex-direction: column;
+    position: relative;
+  }
+}
+
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
