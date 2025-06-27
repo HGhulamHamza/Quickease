@@ -11,7 +11,7 @@ import {
   FaUsers,
   FaTimes,
 } from "react-icons/fa";
-// import "./Sidebar.css";
+import "./SIdebar.css";
 
 const menuItems = [
   { label: "Dashboard", icon: <FaTachometerAlt /> },
