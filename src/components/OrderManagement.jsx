@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./OrderManagement.css";
 
+import { FaArrowLeft } from "react-icons/fa";
+
 const allOrders = [
   { id: "O001", name: "Ali Khan", email: "ali@email.com", phone: "03001234567", status: "Pending", date: "2025-06-25" },
   { id: "O002", name: "Ayesha Iqbal", email: "ayesha@email.com", phone: "03001231234", status: "Ongoing", date: "2025-06-26" },
@@ -48,9 +50,16 @@ const OrderManagement = () => {
     completed: getFilteredOrders("completed"),
     cancelled: getFilteredOrders("cancelled"),
   };
+    const goBackToDashboard = () => {
+    // Replace with your actual Dashboard route if using React Router
+    window.location.href = "/dashboard";
+  };
 
   return (
     <div className="user-management-container">
+       <div onClick={goBackToDashboard} className="back-icon">
+                        <FaArrowLeft />
+                      </div>
       <h2 className="page-heading">Order Management</h2>
 
       <div className="user-tabs">

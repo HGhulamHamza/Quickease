@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./UserManagement.css";
+import { FaArrowLeft } from "react-icons/fa";
 
 const allUsers = [
   { id: "U001", name: "Ali Khan", email: "ali@email.com", phone: "03001234567", joined: "2024-06-01" },
@@ -41,6 +42,10 @@ const UserManagement = () => {
     monthly: getFilteredUsers("monthly"),
   };
 
+  const goBackToDashboard = () => {
+    window.location.href = "/dashboard"; // Update if you're using React Router
+  };
+
   const renderUsers = () => {
     if (!activeTab) return null;
 
@@ -76,6 +81,10 @@ const UserManagement = () => {
 
   return (
     <div className="user-management-container">
+      <div onClick={goBackToDashboard} className="back-icon">
+        <FaArrowLeft />
+      </div>
+
       <h2 className="page-heading">User Panel</h2>
 
       <div className="user-tabs">
@@ -84,35 +93,35 @@ const UserManagement = () => {
           onClick={() => setActiveTab("total")}
         >
           Total Users
-           <p className="summary-number">1430</p>
+          <p className="summary-number">1430</p>
         </button>
         <button
           className={`user-tab ${activeTab === "new" ? "active" : ""}`}
           onClick={() => setActiveTab("new")}
         >
           New Users This Week
-           <p className="summary-number">180</p>
+          <p className="summary-number">180</p>
         </button>
         <button
           className={`user-tab ${activeTab === "daily" ? "active" : ""}`}
           onClick={() => setActiveTab("daily")}
         >
           Daily Active Users
-           <p className="summary-number">30</p>
+          <p className="summary-number">30</p>
         </button>
         <button
           className={`user-tab ${activeTab === "weekly" ? "active" : ""}`}
           onClick={() => setActiveTab("weekly")}
         >
           Weekly Active Users
-           <p className="summary-number">130</p>
+          <p className="summary-number">130</p>
         </button>
         <button
           className={`user-tab ${activeTab === "monthly" ? "active" : ""}`}
           onClick={() => setActiveTab("monthly")}
         >
           Monthly Active Users
-           <p className="summary-number">430</p>
+          <p className="summary-number">430</p>
         </button>
       </div>
 
