@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ComplaintsFeedback.css";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { FaArrowLeft } from "react-icons/fa";
 const complaintsData = [
   {
     id: "U001",
@@ -73,10 +73,16 @@ const ComplaintsFeedback = () => {
     item.email.toLowerCase().includes(searchFeedback.toLowerCase()) ||
     item.id.toLowerCase().includes(searchFeedback.toLowerCase())
   );
-
+    const goBackToDashboard = () => {
+    // Replace with your actual Dashboard route if using React Router
+    window.location.href = "/";
+  };
   return (
     
     <div className="cf-container">
+       <div onClick={goBackToDashboard} className="back-icon">
+                              <FaArrowLeft />
+                            </div>
       
       <h2 className="cf-heading">Complaints & Feedback</h2>
 

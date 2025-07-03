@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Sidebar from "./components/SIdebar";
-import Dashboard from "./components/Dashboard";
-import UserManagement from "./components/UserManagement";
-import OrderManagement from "./components/OrderManagement";
-import ShopsAndCategories from "./components/ShopsAndCategories";
-import TotalUsers from "./components/dashboard/TotalUsers";
-import TotalOrder from "./components/dashboard/TotalOrder";
+import Sidebar from "./components/dashboard/SIdebar";
+import Dashboard from "./components/dashboard/Dashboard";
+import UserManagement from "./components/dashboard/UserManagement";
+import OrderManagement from "./components/dashboard/OrderManagement";
+import ShopsAndCategories from "./components/dashboard/ShopsAndCategories";
+import TotalUsers from "./components/dashboard-overview/TotalUsers";
+import TotalOrder from "./components/dashboard-overview/TotalOrder";
 import RidersList from "./components/dashboard/RidersList";
 import RiderDetails from "./components/dashboard/RiderDetails";
 import ProductsList from "./components/dashboard/ProductsList";
 import ComplaintsFeedback from "./components/dashboard/ComplaintsFeedback";
+import Conversations from "./components/dashboard/ConversationsList"
+import Notifications from "./components/dashboard/Notifications"
+import SuggestedProducts from "./components/dashboard-overview/SuggestedProducts";
+
 
 import "./App.css";
 
@@ -55,6 +59,8 @@ function App() {
         {activeTab === "Products Manager" && (
           <ProductsList selectedCategory={selectedCategory} /> // ✅ pass selected
         )}
+                {activeTab === "Messages and Conversations" && <Conversations />}
+                    {activeTab === "Notifications" && <Notifications />}
 
         {activeTab === "SubPage" &&
           (() => {
@@ -63,6 +69,20 @@ function App() {
                 return <TotalUsers />;
               case "Total Orders":
                 return <TotalOrder />;
+               case "Product Suggestions" :
+                return <SuggestedProducts />;
+                case "Total Products":
+                  return <ProductsList />;
+                 case "Riders":
+                  return <RidersList/>; 
+                  case "Complaints":
+                    return <ComplaintsFeedback />;
+                   case "Conversations":
+                   return <Conversations />; 
+                   case "Product Categories":
+                    return <ShopsAndCategories />;
+                   case "Notifications":
+                    return <Notifications />; 
               default:
                 return <div>Page Not Found</div>;
             }

@@ -10,6 +10,7 @@ import {
   FaEnvelope,
   FaUsers,
   FaTimes,
+  FaBell
 } from "react-icons/fa";
 import "./SIdebar.css";
 
@@ -20,7 +21,7 @@ const menuItems = [
   { label: "Complaints and Feedback", icon: <FaCommentDots /> },
   { label: "Shops and Categories", icon: <FaStore /> },
   { label: "Products Manager", icon: <FaBoxOpen /> },
-  { label: "Analytics and Behaviour", icon: <FaChartLine /> },
+  { label: "Notifications", icon: <FaBell />},
   { label: "Messages and Conversations", icon: <FaEnvelope /> },
   { label: "Users Panel", icon: <FaUsers /> },
 ];

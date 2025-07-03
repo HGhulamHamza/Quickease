@@ -89,6 +89,15 @@ const RidersList = () => {
             text-decoration: underline;
             cursor: pointer;
           }
+            .rider-table thead {
+  background-color: #2C7B34;
+}
+
+.rider-table th {
+  color: white;
+  font-weight: bold;
+}
+
 
           @media screen and (max-width: 768px) {
             .rider-table,

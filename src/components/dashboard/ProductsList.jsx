@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { FaArrowLeft } from "react-icons/fa";
 
 const dummyProducts = [
   {
@@ -90,6 +91,10 @@ const ProductsManager = ({ selectedCategory }) => {
   const handleChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
+  const goBackToDashboard = () => {
+    
+    window.location.href = "/";
+  };
 
   const filteredProducts = dummyProducts.filter((product) => {
     const matchTitle = product.product_title.toLowerCase().includes(filters.title.toLowerCase());
@@ -101,6 +106,9 @@ const ProductsManager = ({ selectedCategory }) => {
 
   return (
     <div className="main-wrapper">
+          <div onClick={goBackToDashboard} className="back-iconn" >
+                      <FaArrowLeft />
+                    </div>
       <h2 className="heading">Search Products</h2>
 
       <div className="filters">
@@ -163,6 +171,9 @@ const ProductsManager = ({ selectedCategory }) => {
           min-height: 100vh;
           text-align: center;
         }
+          .back-iconn{
+          margin-left:-790px
+          }
 
         .heading {
           font-size: 28px;

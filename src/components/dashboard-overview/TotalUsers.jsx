@@ -64,10 +64,19 @@ const TotalUsers = () => {
 
           .users-table th,
           .users-table td {
+          
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #eee;
           }
+.users-table thead {
+  background-color: #2C7B34;
+}
+
+.users-table th {
+  color: white;
+  font-weight: bold;
+}
 
           .view-link,
           .action-link {
@@ -95,11 +104,13 @@ const TotalUsers = () => {
 
   .users-table thead {
     display: none;
+      
   }
+  
 
   .users-table tr {
     margin-bottom: 15px;
-    background: #fff;
+    background:#2C7B34;
     border-radius: 8px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     overflow: hidden;

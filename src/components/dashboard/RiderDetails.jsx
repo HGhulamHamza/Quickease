@@ -123,6 +123,15 @@ const RiderDetails = () => {
           text-decoration: underline;
           cursor: pointer;
         }
+          .order-table thead {
+  background-color: #2C7B34;
+}
+
+.order-table th {
+  color: white;
+  font-weight: bold;
+}
+
 
         @media screen and (max-width: 768px) {
           .card {

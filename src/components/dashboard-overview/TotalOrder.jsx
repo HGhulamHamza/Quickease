@@ -83,15 +83,24 @@ const TotalOrder = () => {
           }
 
           .back-icon {
-            color: #2c7b34;
+            color: #2C7b34;
             font-size: 20px;
             cursor: pointer;
             margin-bottom: 10px;
           }
+            .orders-table thead {
+  background-color: #2C7B34;
+}
+
+.orders-table th {
+  color: white;
+  font-weight: bold;
+}
+
 
           .total-order-heading {
             text-align: center;
-            color: #2c7b34;
+            color: #2C7B34;
             margin-bottom: 20px;
           }
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaPlus, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 
 const categoriesWithSub = {
   "Fruits & Vegetables": ["Fresh Fruits", "Fresh Vegetables"],
@@ -33,9 +34,15 @@ const ShopsAndCategories = ({ setActiveTab, setSelectedCategory }) => {
     setSelectedCategory(category);
     setActiveTab("Products Manager");
   };
-
+const goBackToDashboard = () => {
+    
+    window.location.href = "/";
+  };
   return (
     <div className="main-container">
+      <div onClick={goBackToDashboard} className="back-icon">
+                <FaArrowLeft />
+              </div>
       <style>{`
         .main-container {
           display: flex;
