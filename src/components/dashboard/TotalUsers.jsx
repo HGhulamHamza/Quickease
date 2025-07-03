@@ -20,7 +20,7 @@ const TotalUsers = () => {
   );
   const goBackToDashboard = () => {
     // Replace with your actual Dashboard route if using React Router
-    window.location.href = "/dashboard";
+    window.location.href = "/";
   };
   return (
     <div>

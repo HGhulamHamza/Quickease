@@ -43,7 +43,7 @@ const UserManagement = () => {
   };
 
   const goBackToDashboard = () => {
-    window.location.href = "/dashboard"; // Update if you're using React Router
+    window.location.href = "/"; // Update if you're using React Router
   };
 
   const renderUsers = () => {
