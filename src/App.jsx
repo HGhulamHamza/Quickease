@@ -9,22 +9,23 @@ import ShopsAndCategories from "./components/ShopsAndCategories";
 import TotalUsers from "./components/dashboard/TotalUsers";
 import TotalOrder from "./components/dashboard/TotalOrder";
 import RidersList from "./components/dashboard/RidersList";
-import RiderDetails from "./components/dashboard/RiderDetails"; // ✅ Import
+import RiderDetails from "./components/dashboard/RiderDetails";
+import ProductsList from "./components/dashboard/ProductsList";
+import ComplaintsFeedback from "./components/dashboard/ComplaintsFeedback";
 
 import "./App.css";
-import ComplaintsFeedback from "./components/dashboard/ComplaintsFeedback";
 
 function App() {
   const [activeTab, setActiveTab] = useState("Dashboard");
   const [showSidebar, setShowSidebar] = useState(false);
   const [subPage, setSubPage] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(""); // ✅ added
 
   const handleNavigate = (title) => {
     setSubPage(title);
     setActiveTab("SubPage");
   };
 
-  // ✅ Your main layout logic is preserved
   const Layout = () => (
     <div className="app-container">
       <Sidebar
@@ -43,9 +44,17 @@ function App() {
         )}
         {activeTab === "Users Panel" && <UserManagement />}
         {activeTab === "Order Management" && <OrderManagement />}
-        {activeTab === "Shops and Categories" && <ShopsAndCategories />}
+        {activeTab === "Shops and Categories" && (
+          <ShopsAndCategories
+            setActiveTab={setActiveTab}
+            setSelectedCategory={setSelectedCategory} // ✅ pass setter
+          />
+        )}
         {activeTab === "Riders Pannel" && <RidersList />}
-         {activeTab==="Complaints and Feedback" && <ComplaintsFeedback/>}
+        {activeTab === "Complaints and Feedback" && <ComplaintsFeedback />}
+        {activeTab === "Products Manager" && (
+          <ProductsList selectedCategory={selectedCategory} /> // ✅ pass selected
+        )}
 
         {activeTab === "SubPage" &&
           (() => {
@@ -63,7 +72,6 @@ function App() {
   );
 
   return (
-    // ✅ Wrap with Routes to allow RiderDetails to be a standalone route
     <Routes>
       <Route path="/" element={<Layout />} />
       <Route path="/rider-details" element={<RiderDetails />} />

@@ -1,76 +1,194 @@
-import React from "react";
-import "./ShopsAndCategories.css";
+import React, { useState } from "react";
+import { FaPlus, FaArrowRight } from "react-icons/fa";
 
-const shops = [
-  { id: 1, name: "Store A", location: "Peshawar Saddar", status: "Active" },
-  { id: 2, name: "Store B", location: "Hayatabad", status: "Inactive" },
-  { id: 3, name: "Pharmacy 1", location: "University Town", status: "Active" },
-];
-
-const categories = [
-  { id: 1, name: "Fruits & Vegetables" },
-  { id: 2, name: "Dairy & Eggs" },
-  { id: 3, name: "Snacks" },
-  { id: 4, name: "Cleaning Supplies" },
-  { id: 5, name: "Baby Care" },
-];
-
-const subcategories = {
+const categoriesWithSub = {
   "Fruits & Vegetables": ["Fresh Fruits", "Fresh Vegetables"],
   "Dairy & Eggs": ["Milk", "Cheese", "Butter"],
   Snacks: ["Chips", "Biscuits", "Chocolate"],
+  "Cleaning Supplies": ["Detergent", "Toilet Cleaner"],
+  "Baby Care": ["Diapers", "Baby Oil"],
 };
 
-const ShopsAndCategories = () => {
+const ShopsAndCategories = ({ setActiveTab, setSelectedCategory }) => {
+  const [categorySearch, setCategorySearch] = useState("");
+  const [subCategorySearch, setSubCategorySearch] = useState("");
+
+  const filteredData = Object.entries(categoriesWithSub).filter(
+    ([cat, subs]) => {
+      const matchesCategory = categorySearch
+        ? cat.toLowerCase().includes(categorySearch.toLowerCase())
+        : true;
+
+      const matchesSub = subCategorySearch
+        ? subs.some((sub) =>
+            sub.toLowerCase().includes(subCategorySearch.toLowerCase())
+          )
+        : true;
+
+      return matchesCategory && matchesSub;
+    }
+  );
+
+  const handleNavigate = (category) => {
+    setSelectedCategory(category);
+    setActiveTab("Products Manager");
+  };
+
   return (
-    <div className="shops-categories">
-      <h2>Shops & Categories</h2>
+    <div className="main-container">
+      <style>{`
+        .main-container {
+          display: flex;
+          min-height: 100vh;
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+        }
 
-      <div className="section">
-        <h3>All Shops</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Shop Name</th>
-              <th>Location</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {shops.map((shop) => (
-              <tr key={shop.id}>
-                <td>{shop.name}</td>
-                <td>{shop.location}</td>
-                <td>{shop.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+        .left-panel {
+          width: 300px;
+          padding: 20px;
+          background-color: #ffffff;
+          border-right: 2px solid #ddd;
+        }
 
-      <div className="section">
-        <h3>Categories</h3>
-        <ul className="category-list">
-          {categories.map((cat) => (
-            <li key={cat.id}>{cat.name}</li>
-          ))}
-        </ul>
-      </div>
+        .input-group {
+          margin-bottom: 30px;
+        }
 
-      <div className="section">
-        <h3>Subcategories</h3>
-        <div className="subcategory-blocks">
-          {Object.entries(subcategories).map(([cat, subs]) => (
-            <div key={cat} className="subcategory-group">
-              <strong>{cat}</strong>
-              <ul>
-                {subs.map((sub, idx) => (
-                  <li key={idx}>{sub}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        .input-group input {
+          width: 100%;
+          padding: 10px;
+          border-radius: 6px;
+          border: 1px solid #ccc;
+          font-size: 14px;
+        }
+
+        .add-link {
+          display: flex;
+          align-items: center;
+          color: #2c7b34;
+          font-weight: bold;
+          font-size: 14px;
+          cursor: pointer;
+          margin-top: 8px;
+          text-decoration: underline;
+          gap: 6px;
+        }
+
+        .right-panel {
+          flex: 1;
+          padding: 30px;
+        }
+
+        .category-block {
+          margin-bottom: 10px;
+          background: white;
+          padding: 12px 16px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .category-title {
+          font-size: 16px;
+          font-weight: bold;
+          color: #2c7b34;
+        }
+
+        .subcategories {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin: 10px 0 20px 10px;
+        }
+
+        .sub-item {
+          background: #fff;
+          padding: 8px 14px;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+          font-size: 13px;
+        }
+
+        @media screen and (max-width: 768px) {
+          .main-container {
+            flex-direction: column;
+          }
+
+          .left-panel {
+            width: 100%;
+            border-right: none;
+            border-bottom: 2px solid #ddd;
+          }
+
+          .right-panel {
+            padding: 20px;
+          }
+        }
+      `}</style>
+
+      <div className="left-panel">
+        <div className="input-group">
+          <input
+            type="text"
+            placeholder="Search Category"
+            value={categorySearch}
+            onChange={(e) => setCategorySearch(e.target.value)}
+          />
+          <div className="add-link">
+            <FaPlus />
+            <span>Add Category</span>
+          </div>
         </div>
+
+        <div className="input-group">
+          <input
+            type="text"
+            placeholder="Search Sub Category"
+            value={subCategorySearch}
+            onChange={(e) => setSubCategorySearch(e.target.value)}
+          />
+          <div className="add-link">
+            <FaPlus />
+            <span>Add Sub Category</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="right-panel">
+        {filteredData.length === 0 ? (
+          <p>No matching results found.</p>
+        ) : (
+          filteredData.map(([category, subs]) => (
+            <div key={category}>
+              <div className="category-block">
+                <div className="category-title">{category}</div>
+                <FaArrowRight
+                  style={{ color: "#2c7b34", cursor: "pointer" }}
+                  onClick={() => handleNavigate(category)}
+                />
+              </div>
+              <div className="subcategories">
+                {subs
+                  .filter((sub) =>
+                    subCategorySearch
+                      ? sub
+                          .toLowerCase()
+                          .includes(subCategorySearch.toLowerCase())
+                      : true
+                  )
+                  .map((sub, index) => (
+                    <div key={index} className="sub-item">
+                      {sub}
+                    </div>
+                  ))}
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
