@@ -15,6 +15,7 @@ import ComplaintsFeedback from "./components/dashboard/ComplaintsFeedback";
 import Conversations from "./components/dashboard/ConversationsList"
 import Notifications from "./components/dashboard/Notifications"
 import SuggestedProducts from "./components/dashboard-overview/SuggestedProducts";
+import UserDetails from "./components/dashboard-overview/UserDetails";
 
 
 import "./App.css";
@@ -95,6 +96,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />} />
       <Route path="/rider-details" element={<RiderDetails />} />
+      <Route path="/user-details" element={<UserDetails />} />
     </Routes>
   );
 }
