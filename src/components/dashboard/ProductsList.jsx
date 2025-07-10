@@ -1,74 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-
-const dummyProducts = [
-  {
-    product_id: "P001",
-    product_title: "Fresh Mangoes",
-    product_price: "250",
-    product_image: "https://i.imgur.com/lAYSrq2.jpg",
-    quantity: 20,
-    category: "Fruits & Vegetables",
-  },
-  {
-    product_id: "P002",
-    product_title: "Tomatoes",
-    product_price: "80",
-    product_image: "https://i.imgur.com/IEwNnbP.jpg",
-    quantity: 35,
-    category: "Fruits & Vegetables",
-  },
-  {
-    product_id: "P003",
-    product_title: "Olpers Milk 1L",
-    product_price: "260",
-    product_image: "https://i.imgur.com/HmFjC1d.jpg",
-    quantity: 18,
-    category: "Dairy & Eggs",
-  },
-  {
-    product_id: "P004",
-    product_title: "Cheddar Cheese Slice Pack",
-    product_price: "450",
-    product_image: "https://i.imgur.com/7lfvQjo.jpg",
-    quantity: 12,
-    category: "Dairy & Eggs",
-  },
-  {
-    product_id: "P005",
-    product_title: "LAYS Masala Chips",
-    product_price: "50",
-    product_image: "https://i.imgur.com/lAYSrq2.jpg",
-    quantity: 30,
-    category: "Snacks",
-  },
-  {
-    product_id: "P006",
-    product_title: "Chocolate Bar",
-    product_price: "120",
-    product_image: "https://i.imgur.com/Y0ZB0t7.jpg",
-    quantity: 40,
-    category: "Snacks",
-  },
-  {
-    product_id: "P007",
-    product_title: "Toilet Cleaner 500ml",
-    product_price: "180",
-    product_image: "https://i.imgur.com/jn6hzTG.jpg",
-    quantity: 25,
-    category: "Cleaning Supplies",
-  },
-  {
-    product_id: "P008",
-    product_title: "Baby Diapers Pack",
-    product_price: "990",
-    product_image: "https://i.imgur.com/V2sULVP.jpg",
-    quantity: 10,
-    category: "Baby Care",
-  },
-];
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebaseConfig"; // 👈 Adjust path if file is elsewhere
 
 const ProductsManager = ({ selectedCategory }) => {
+  const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({
     title: "",
     price: "",
@@ -77,6 +13,32 @@ const ProductsManager = ({ selectedCategory }) => {
   });
 
   const categorySelectRef = useRef(null);
+
+  // ✅ Fetch products from Firestore
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "products"));
+        const fetched = [];
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          fetched.push({
+            product_id: doc.id,
+            product_title: data.title || "Untitled",
+            product_price: data.price || "N/A",
+            product_image: data.imageUrl || data.cached_url || "https://via.placeholder.com/150",
+            quantity: data.quantity || 0,
+            category: data.category || "Uncategorized",
+          });
+        });
+        setProducts(fetched);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   // ✅ Preselect category and scroll to it
   useEffect(() => {
@@ -91,12 +53,12 @@ const ProductsManager = ({ selectedCategory }) => {
   const handleChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
+
   const goBackToDashboard = () => {
-    
     window.location.href = "/";
   };
 
-  const filteredProducts = dummyProducts.filter((product) => {
+  const filteredProducts = products.filter((product) => {
     const matchTitle = product.product_title.toLowerCase().includes(filters.title.toLowerCase());
     const matchPrice = filters.price === "" || product.product_price === filters.price;
     const matchId = product.product_id.toLowerCase().includes(filters.id.toLowerCase());
@@ -106,9 +68,9 @@ const ProductsManager = ({ selectedCategory }) => {
 
   return (
     <div className="main-wrapper">
-          <div onClick={goBackToDashboard} className="back-iconn" >
-                      <FaArrowLeft />
-                    </div>
+      <div onClick={goBackToDashboard} className="back-iconn">
+        <FaArrowLeft />
+      </div>
       <h2 className="heading">Search Products</h2>
 
       <div className="filters">
@@ -171,9 +133,11 @@ const ProductsManager = ({ selectedCategory }) => {
           min-height: 100vh;
           text-align: center;
         }
-          .back-iconn{
-          margin-left:-790px
-          }
+
+        .back-iconn {
+          margin-left: -790px;
+          cursor: pointer;
+        }
 
         .heading {
           font-size: 28px;

@@ -84,6 +84,7 @@ function App() {
                     return <ShopsAndCategories />;
                    case "Notifications":
                     return <Notifications />; 
+                   
               default:
                 return <div>Page Not Found</div>;
             }

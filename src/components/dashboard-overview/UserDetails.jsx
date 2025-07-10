@@ -26,6 +26,42 @@ const UserDetails = () => {
     },
   ];
 
+  const complaints = [
+    {
+      id: "CMP001",
+      title: "Late Delivery",
+      description: "The order was delivered two days late without any notice.",
+    },
+    {
+      id: "CMP002",
+      title: "Damaged Product",
+      description: "The received item was broken and packaging was torn.",
+    },
+  ];
+
+  const lists = [
+    {
+      id: "LIST001",
+      name: "Wishlist - Electronics",
+      description: "Saved favorite electronic items for later purchase.",
+      images: [
+        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
+        "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+        "https://images.unsplash.com/photo-1503602642458-232111445657",
+      ],
+    },
+    {
+      id: "LIST002",
+      name: "Gift Ideas",
+      description: "Curated items for family gifts.",
+      images: [
+        "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f",
+        "https://images.unsplash.com/photo-1571687949920-bcc907e50800",
+        "https://images.unsplash.com/photo-1580717560384-b4c3b3fc197b",
+      ],
+    },
+  ];
+
   if (!user) {
     return (
       <div style={{ padding: "20px", textAlign: "center" }}>
@@ -50,26 +86,38 @@ const UserDetails = () => {
 
         .main-heading {
           text-align: center;
-          font-size: 22px;
+          font-size: 24px;
           font-weight: bold;
           color: #2c7b34;
           margin-bottom: 25px;
         }
 
-        .card {
-          background: #ffffff;
-          border: 2px solid #ccc;
-          border-radius: 10px;
-          padding: 14px;
-          margin: 15px auto;
-          width: 95%;
-          max-width: 500px;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-          position: relative;
-          font-size: 14px;
+        .section-card {
+          background: #DDDADA;
+          border-radius: 12px;
+          padding: 18px;
+          margin: 20px auto;
+          max-width: 600px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        .default-border {
+        .section-title {
+          font-size: 18px;
+          font-weight: bold;
+          color: #2c7b34;
+          margin-bottom: 10px;
+          text-align: center;
+        }
+
+        .sub-card {
+          background-color:rgba(255, 255, 255, 0.45);
+          border: 1px solid black;
+          border-radius: 10px;
+          padding: 12px;
+          margin-bottom: 12px;
+        }
+
+        .sub-card.default-border {
           border-color: #2c7b34;
         }
 
@@ -77,34 +125,37 @@ const UserDetails = () => {
           font-size: 16px;
           color: #2c7b34;
           font-weight: 600;
-          margin-bottom: 10px;
+          margin-bottom: 6px;
         }
 
         .info-row {
-          margin: 5px 0;
-          color: #333;
+          margin: 4px 0;
+          font-size: 14px;
         }
 
         .badge {
-          position: absolute;
-          top: -10px;
-          right: -10px;
+          display: inline-block;
           background-color: #2c7b34;
-          color: #fff;
-          padding: 4px 8px;
-          border-radius: 10px;
+          color: white;
           font-size: 11px;
-          font-weight: 600;
-          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+          padding: 3px 8px;
+          border-radius: 8px;
+          margin-bottom: 6px;
         }
 
-        .section-title {
-          text-align: center;
-          font-size: 18px;
-          color: #2c7b34;
-          margin-top: 30px;
-          margin-bottom: 10px;
-          font-weight: bold;
+        .image-row {
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+          margin-top: 8px;
+        }
+
+        .list-image {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid #2c7b34;
         }
       `}</style>
 
@@ -115,29 +166,56 @@ const UserDetails = () => {
 
         <h2 className="main-heading">User Details</h2>
 
-        <div className="card default-border">
-          <div className="card-heading">Personal Information</div>
+        {/* Personal Info */}
+        <div className="section-card">
+          <div className="section-title">Personal Information</div>
           <div className="info-row"><strong>User ID:</strong> {user.id}</div>
           <div className="info-row"><strong>Name:</strong> {user.name}</div>
           <div className="info-row"><strong>Email:</strong> {user.email}</div>
           <div className="info-row"><strong>Phone:</strong> {user.phone}</div>
         </div>
 
-        {/* Addresses Section */}
-        <h2 className="section-title">Addresses</h2>
+        {/* Addresses */}
+        <div className="section-card">
+          <div className="section-title">Addresses</div>
+          {addresses.map((addr) => (
+            <div key={addr.id} className={`sub-card ${addr.isDefault ? "default-border" : ""}`}>
+              {addr.isDefault && <div className="badge">Default</div>}
+              <div className="info-row"><strong>Street:</strong> {addr.street}</div>
+              <div className="info-row"><strong>City:</strong> {addr.city}</div>
+              <div className="info-row"><strong>Phone:</strong> {addr.phone}</div>
+            </div>
+          ))}
+        </div>
 
-        {addresses.map((addr) => (
-          <div
-            key={addr.id}
-            className={`card ${addr.isDefault ? "default-border" : ""}`}
-          >
-            {addr.isDefault && <div className="badge">Default Address</div>}
-            <div className="card-heading">Address {addr.id}</div>
-            <div className="info-row"><strong>Street:</strong> {addr.street}</div>
-            <div className="info-row"><strong>City:</strong> {addr.city}</div>
-            <div className="info-row"><strong>Phone:</strong> {addr.phone}</div>
-          </div>
-        ))}
+        {/* Complaints */}
+        <div className="section-card">
+          <div className="section-title">Complaints</div>
+          {complaints.map((comp) => (
+            <div key={comp.id} className="sub-card">
+              <div className="info-row"><strong>ID:</strong> {comp.id}</div>
+              <div className="info-row"><strong>Title:</strong> {comp.title}</div>
+              <div className="info-row"><strong>Description:</strong> {comp.description}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Lists */}
+        <div className="section-card">
+          <div className="section-title">Lists</div>
+          {lists.map((list) => (
+            <div key={list.id} className="sub-card">
+              <div className="card-heading">{list.name}</div>
+              <div className="info-row"><strong>Description:</strong> {list.description}</div>
+              <div className="info-row"><strong>Items:</strong></div>
+              <div className="image-row">
+                {list.images.map((img, idx) => (
+                  <img key={idx} src={img} alt={`item-${idx}`} className="list-image" />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
